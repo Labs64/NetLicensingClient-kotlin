@@ -1,0 +1,1 @@
+# [Labs64 NetLicensing](https://netlicensing.io) Kotlin Client
