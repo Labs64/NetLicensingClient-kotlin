@@ -26,38 +26,42 @@
         </license>
     </licenses>
 
-    <scm>
-        <url>https://github.com/Labs64/NetLicensingClient-java</url>
-        <connection>scm:git:git@github.com:Labs64/NetLicensingClient-java.git</connection>
-        <developerConnection>scm:git:git@github.com:Labs64/NetLicensingClient-java.git</developerConnection>
-        <tag>HEAD</tag>
-    </scm>
+    <!--TODO(AY): add scm-->
+    <!--<scm>-->
+        <!--<url>https://github.com/Labs64/NetLicensingClient-java</url>-->
+        <!--<connection>scm:git:git@github.com:Labs64/NetLicensingClient-java.git</connection>-->
+        <!--<developerConnection>scm:git:git@github.com:Labs64/NetLicensingClient-java.git</developerConnection>-->
+        <!--<tag>HEAD</tag>-->
+    <!--</scm>-->
 
     <issueManagement>
         <system>GitHub Issues</system>
-        <url>https://github.com/Labs64/NetLicensingClient-java/issues</url>
+        <url>https://github.com/yushkevich/NetLicensingClient-kotlin/issues</url>
     </issueManagement>
 
     <ciManagement>
         <system>Travis CI</system>
-        <url>https://travis-ci.org/Labs64/NetLicensingClient-java</url>
+        <url>https://travis-ci.com/yushkevich/NetLicensingClient-kotlin</url>
     </ciManagement>
 
     <developers>
         <developer>
-            <id>alexey.averikhin</id>
-            <name>Alexey Averikhin</name>
-            <email>alexey.averikhin@labs64.de</email>
+            <id>yushkevich</id>
+            <name>Andrei Yushkevich</name>
+            <email>yushkevich@me.com</email>
             <roles>
-                <role>Project Manager</role>
-                <role>Architect</role>
+                <role>Developer</role>
             </roles>
-            <url>https://www.linkedin.com/in/averikhin</url>
+            <url>https://www.linkedin.com/in/ayushkevich</url>
             <organization>Labs64 GmbH</organization>
-            <organizationUrl>http://www.labs64.de</organizationUrl>
-            <timezone>+1</timezone>
+            <organizationUrl>https://www.labs64.com</organizationUrl>
+            <timezone>+3</timezone>
         </developer>
     </developers>
+
+    <contributors>
+        <!--TODO(AY): add some-->
+    </contributors>
 
     <modules>
         <module>NetLicensingClient</module>
@@ -74,7 +78,7 @@
     <dependencies>
         <dependency>
             <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib</artifactId>
+            <artifactId>kotlin-stdlib-jdk8</artifactId>
             <version>${kotlin.version}</version>
         </dependency>
 
@@ -90,19 +94,22 @@
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jetbrains.kotlin</groupId>
+            <artifactId>kotlin-test</artifactId>
+            <version>${kotlin.version}</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
-        <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>${project.basedir}/src/test/kotlin</testSourceDirectory>
-
+        <sourceDirectory>NetLicensingClient/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>NetLicensingClient/src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
-                <artifactId>kotlin-maven-plugin</artifactId>
                 <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-maven-plugin</artifactId>
                 <version>${kotlin.version}</version>
-
-                <configuration/>
                 <executions>
                     <execution>
                         <id>compile</id>
@@ -119,34 +126,8 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
                 <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>${main.class}</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <mainClass>${main.class}</mainClass>
+                    <jvmTarget>1.8</jvmTarget>
                 </configuration>
             </plugin>
         </plugins>
