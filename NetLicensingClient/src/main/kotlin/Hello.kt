@@ -1,5 +1,3 @@
-package hello
-
 fun getHelloString() : String {
     return "Hello, world!"
 }
@@ -7,4 +5,3 @@ fun getHelloString() : String {
 fun main(args : Array<String>) {
     println(getHelloString())
 }
-
