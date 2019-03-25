@@ -7,9 +7,9 @@ class TokenAuthentication
  * @param token
  * authentication token
  */
-    (val password: String) : Authentication {
+    (override val password: String) : Authentication {
 
-    val username: String
+    override val username: String
         get() = "apiKey"
 
 }

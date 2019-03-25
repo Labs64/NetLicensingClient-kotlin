@@ -38,7 +38,7 @@ interface RestProvider {
     @Throws(RestException::class)
     fun <REQ, RES> call(
         method: String, urlTemplate: String, request: REQ, responseType: Class<RES>,
-        queryParams: Map<String, Any>
+        queryParams: Map<String, Any>?
     ): RestResponse<RES>
 
     /**

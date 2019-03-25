@@ -9,4 +9,4 @@ class UsernamePasswordAuthentication
  * @param password
  * for basic HTTP authentication
  */
-    (val username: String, val password: String) : Authentication
+    (override val username: String, override val password: String) : Authentication

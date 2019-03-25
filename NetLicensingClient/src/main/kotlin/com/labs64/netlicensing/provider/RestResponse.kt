@@ -1,7 +1,6 @@
 package com.labs64.netlicensing.provider
 
-import org.springframework.util.LinkedMultiValueMap
-import org.springframework.util.MultiValueMap;
+import javax.ws.rs.core.MultivaluedMap
 
 /**
  * Contains info about response together with response entity.
@@ -13,14 +12,7 @@ class RestResponse<T> {
 
     var statusCode: Int = 0
 
-    var headers: MultiValueMap<String, Any>? = null
-        set(headers) {
-
-            field = LinkedMultiValueMap<String, Any>()
-            if (headers != null) {
-                this.headers!!.putAll(headers)//TODO(AY): could be problem with types
-            }
-        }
+    var headers: MultivaluedMap<String, Any>? = null
 
     var entity: T? = null
 

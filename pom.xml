@@ -73,69 +73,70 @@
         <junit.version>4.12</junit.version>
         <main.class>HelloKt</main.class>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <jersey.version>2.27</jersey.version>
+        <javax.ws.rs.version>2.1</javax.ws.rs.version>
+        <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-stdlib-jdk8</artifactId>
-            <version>${kotlin.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test-junit</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-test</artifactId>
-            <version>${kotlin.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>5.1.5.RELEASE</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <sourceDirectory>NetLicensingClient/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>NetLicensingClient/src/test/kotlin</testSourceDirectory>
-        <plugins>
-            <plugin>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-maven-plugin</artifactId>
+                <artifactId>kotlin-stdlib-jdk8</artifactId>
                 <version>${kotlin.version}</version>
-                <executions>
-                    <execution>
-                        <id>compile</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>compile</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>test-compile</id>
-                        <phase>test-compile</phase>
-                        <goals>
-                            <goal>test-compile</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jvmTarget>1.8</jvmTarget>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+            </dependency>
+
+            <!-- https://mvnrepository.com/artifact/org.springframework/spring-core -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-core</artifactId>
+                <version>${org.springframework.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.glassfish.jersey.core</groupId>
+                <artifactId>jersey-client</artifactId>
+                <version>${jersey.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency> <!-- from 2.16 on: https://jersey.java.net/documentation/latest/migration.html#mig-2.16 -->
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-jaxb</artifactId>
+                <version>${jersey.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency><!-- from 2.26 on: https://github.com/jersey/jersey/issues/3584 -->
+                <groupId>org.glassfish.jersey.inject</groupId>
+                <artifactId>jersey-hk2</artifactId>
+                <version>${jersey.version}</version>
+                <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>javax.ws.rs-api</artifactId>
+                <version>${javax.ws.rs.version}</version>
+                <scope>compile</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-test-junit</artifactId>
+                <version>${kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains.kotlin</groupId>
+                <artifactId>kotlin-test</artifactId>
+                <version>${kotlin.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
