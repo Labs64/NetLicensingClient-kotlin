@@ -10,7 +10,6 @@ interface RestProvider {
         val userAgent: String
 
         val isLoggingEnabled: Boolean
-
     }
 
     /**
@@ -37,7 +36,10 @@ interface RestProvider {
     </RES></REQ> */
     @Throws(RestException::class)
     fun <REQ, RES> call(
-        method: String, urlTemplate: String, request: REQ, responseType: Class<RES>,
+        method: String,
+        urlTemplate: String,
+        request: REQ,
+        responseType: Class<RES>,
         queryParams: Map<String, Any>?
     ): RestResponse<RES>
 
@@ -69,5 +71,4 @@ interface RestProvider {
      * [Configuration] configuration to use for the provider
      */
     fun configure(configuration: Configuration)
-
 }

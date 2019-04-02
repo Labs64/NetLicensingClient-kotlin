@@ -11,5 +11,4 @@ class TokenAuthentication
 
     override val username: String
         get() = "apiKey"
-
 }

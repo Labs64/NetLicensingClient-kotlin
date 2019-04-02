@@ -14,6 +14,11 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.NoContentException
 import javax.ws.rs.core.Response
 
+/**
+ * Low level REST client implementation.
+ * <p>
+ * This will also log each request in INFO level.
+ */
 class RestProviderJersey(private val basePath: String) : AbstractRestProvider() {
 
     private val DEFAULT_ACCEPT_TYPES = arrayOf<MediaType>(MediaType.APPLICATION_XML_TYPE)
@@ -108,7 +113,6 @@ class RestProviderJersey(private val basePath: String) : AbstractRestProvider() 
         }
     }
 
-
     @Throws(RestException::class)
     private fun <RES> readEntity(response: Response, responseType: Class<RES>): RES? {
         var buffered = false
@@ -131,5 +135,4 @@ class RestProviderJersey(private val basePath: String) : AbstractRestProvider() 
             }
         }
     }
-
 }

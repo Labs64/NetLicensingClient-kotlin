@@ -5,9 +5,8 @@ import javax.ws.rs.core.MultivaluedMap
 /**
  * Contains info about response together with response entity.
  *
- * @param <T>
- * type of response entity
-</T> */
+ * @param <T> type of response entity
+ */
 class RestResponse<T> {
 
     var statusCode: Int = 0
@@ -15,5 +14,4 @@ class RestResponse<T> {
     var headers: MultivaluedMap<String, Any>? = null
 
     var entity: T? = null
-
 }

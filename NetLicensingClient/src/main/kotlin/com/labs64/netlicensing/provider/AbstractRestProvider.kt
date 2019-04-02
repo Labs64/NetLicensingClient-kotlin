@@ -30,5 +30,4 @@ abstract class AbstractRestProvider : RestProvider {
     override fun configure(configuration: RestProvider.Configuration) {
         this.configuration = configuration
     }
-
 }

@@ -3,7 +3,7 @@ package com.labs64.netlicensing.exception
 /**
  * Base class for checked exceptions with a root cause.
  */
-abstract class NetLicensingException(message:String) : Exception(message) {
+abstract class NetLicensingException(message: String) : Exception(message) {
 
     /**
      * Retrieve the innermost cause of this exception, if any.
