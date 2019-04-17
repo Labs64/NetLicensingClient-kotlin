@@ -41,7 +41,10 @@
             <groupId>javax.ws.rs</groupId>
             <artifactId>javax.ws.rs-api</artifactId>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
         <!--junit-->
         <dependency>
             <groupId>junit</groupId>
@@ -89,34 +92,63 @@
                     <jvmTarget>1.8</jvmTarget>
                 </configuration>
             </plugin>
+            <!-- Maven JAXB2 Plugin Documentation : http://confluence.highsource.org/x/HgBJ -->
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>${main.class}</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>exec-maven-plugin</artifactId>
-                <version>1.2.1</version>
+                <groupId>org.jvnet.jaxb2.maven2</groupId>
+                <artifactId>maven-jaxb2-plugin</artifactId>
                 <executions>
                     <execution>
-                        <phase>test</phase>
+                        <phase>process-resources</phase>
                         <goals>
-                            <goal>java</goal>
+                            <goal>generate</goal>
                         </goals>
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>${main.class}</mainClass>
+                    <schemaDirectory>${project.build.directory}/classes/schema</schemaDirectory>
+                    <schemaIncludes>
+                        <include>**/netlicensing-context*.xsd</include>
+                    </schemaIncludes>
+                    <catalog>${project.build.directory}/classes/schema/xmldsig.cat</catalog>
+                    <!-- Using catalogs to resolve schema URI in strict mode is known to be problematic and may fail.
+                         Please refer to the following link for more information:
+                         https://github.com/highsource/maven-jaxb2-plugin/wiki/Catalogs-in-Strict-Mode -->
+                    <strict>false</strict>
+                    <!-- see also https://java.net/jira/browse/MAVEN_JAXB2_PLUGIN-89 -->
+                    <bindingDirectory>src/main/resources</bindingDirectory>
+                    <bindingIncludes>
+                        <bindingInclude>nlic-schema-bindings.xjb</bindingInclude>
+                    </bindingIncludes>
+                    <specVersion>2.1</specVersion>
+                    <extension>true</extension>
+                    <args>
+                        <arg>-Xvalue-constructor</arg>
+                    </args>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.jvnet.jaxb2_commons</groupId>
+                            <artifactId>jaxb2-value-constructor</artifactId>
+                        </plugin>
+                    </plugins>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <source>${project.build.directory}/generated-sources/xjc</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

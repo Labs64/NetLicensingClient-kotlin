@@ -19,7 +19,7 @@ open class GenericContext<T : Any>(val valueClass: Class<T>) {
     }
 
     fun setValue(key: String, value: T?): GenericContext<T> {
-        if (value != null) {
+        value?.let {
             getContextMap().put(key, value)
         }
         return this
@@ -55,7 +55,7 @@ open class GenericContext<T : Any>(val valueClass: Class<T>) {
     }
 
     fun setObject(key: String, value: Any?): GenericContext<T> {
-        if (value != null) {
+        value?.let {
             getContextMap()[key] = value
         }
         return this

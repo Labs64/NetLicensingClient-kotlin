@@ -40,7 +40,7 @@ interface RestProvider {
         urlTemplate: String,
         request: REQ,
         responseType: Class<RES>,
-        queryParams: Map<String, Any>?
+        queryParams: Map<String, Any?>?
     ): RestResponse<RES>
 
     /**

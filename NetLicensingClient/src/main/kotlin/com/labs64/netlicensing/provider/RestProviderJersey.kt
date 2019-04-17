@@ -34,7 +34,7 @@ class RestProviderJersey(private val basePath: String) : AbstractRestProvider() 
         urlTemplate: String,
         request: REQ,
         responseType: Class<RES>,
-        queryParams: Map<String, Any>?
+        queryParams: Map<String, Any?>?
     ): RestResponse<RES> {
         var target = getTarget(basePath)
         addAuthHeaders(target, authentication)
@@ -107,7 +107,7 @@ class RestProviderJersey(private val basePath: String) : AbstractRestProvider() 
      * an object providing the authentication info
      */
     private fun addAuthHeaders(target: WebTarget, auth: Authentication?) {
-        if (auth != null) {
+        auth?.let {
             // see also https://jersey.java.net/documentation/latest/client.html, chapter "Securing a Client"
             target.register(HttpAuthenticationFeature.basic(auth.username, auth.password))
         }
