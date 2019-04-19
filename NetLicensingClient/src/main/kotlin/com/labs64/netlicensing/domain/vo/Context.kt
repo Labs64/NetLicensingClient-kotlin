@@ -27,7 +27,7 @@ class Context : GenericContext<String>(String::class.java) {
         return getValue(Constants.PASSWORD)
     }
 
-    fun setApiKey(apiKey: String): Context {
+    fun setApiKey(apiKey: String?): Context {
         return this.setValue(Constants.Token.API_KEY, apiKey) as Context
     }
 

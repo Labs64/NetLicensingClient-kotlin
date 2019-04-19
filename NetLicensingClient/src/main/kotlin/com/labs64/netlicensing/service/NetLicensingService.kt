@@ -3,6 +3,7 @@ package com.labs64.netlicensing.service
 import com.labs64.netlicensing.domain.Constants
 import com.labs64.netlicensing.domain.EntityFactory
 import com.labs64.netlicensing.domain.vo.Context
+import com.labs64.netlicensing.domain.vo.MetaInfo
 import com.labs64.netlicensing.domain.vo.Page
 import com.labs64.netlicensing.domain.vo.SecurityMode
 import com.labs64.netlicensing.exception.NetLicensingException
@@ -12,6 +13,7 @@ import com.labs64.netlicensing.provider.RestProvider
 import com.labs64.netlicensing.provider.RestProviderJersey
 import com.labs64.netlicensing.schema.SchemaFunction
 import com.labs64.netlicensing.schema.context.Netlicensing
+import com.labs64.netlicensing.util.CheckUtils
 import org.apache.commons.lang3.StringUtils
 import javax.ws.rs.HttpMethod
 import javax.ws.rs.core.Form
@@ -37,6 +39,94 @@ object NetLicensingService {
         return instance
     }
 
+    /**
+     * Helper method for performing GET request to NetLicensing API services. Finds and returns first suitable item with
+     * type resultType from the response.
+     *
+     * @param context
+     * context for the NetLicensing API call
+     * @param urlTemplate
+     * the REST URL template
+     * @param queryParams
+     * The REST query parameters values. May be null if there are no parameters.
+     * @param resultType
+     * the type of the result
+     * @return first suitable item with type resultType from the response
+     * @throws com.labs64.netlicensing.exception.NetLicensingException
+     */
+    @Throws(NetLicensingException::class)
+    internal operator fun <RES> get(
+        context: Context,
+        urlTemplate: String,
+        queryParams: MutableMap<String, Any?>,
+        resultType: Class<RES>,
+        vararg meta: MetaInfo
+    ): RES {
+        val netlicensing = request(context, HttpMethod.GET, urlTemplate, null, queryParams)
+        if (meta != null && meta.size > 0 && meta[0] != null) {
+            if (netlicensing!!.id != null) {
+                meta[0].setValue(Constants.PROP_ID, netlicensing.id)
+            }
+        }
+        return entityFactory.create(netlicensing!!, resultType)
+    }
+
+    /**
+     * Helper method for performing DELETE request to NetLicensing API services.
+     *
+     * @param context
+     * context for the NetLicensing API call
+     * @param urlTemplate
+     * the REST URL template
+     * @param queryParams
+     * The REST query parameters values. May be null if there are no parameters.
+     * @throws NetLicensingException
+     */
+    @Throws(NetLicensingException::class)
+    internal fun delete(
+        context: Context,
+        urlTemplate: String,
+        queryParams: MutableMap<String, Any?>?
+    ) {
+        request(context, HttpMethod.DELETE, urlTemplate, null, queryParams)
+    }
+
+    /**
+     * Helper method for performing POST request to NetLicensing API services. Finds and returns first suitable item
+     * with type resultType from the response.
+     *
+     * @param context
+     * context for the NetLicensing API call
+     * @param urlTemplate
+     * the REST URL template
+     * @param request
+     * The request body to be sent to the server. May be null.
+     * @param resultType
+     * the type of the result
+     * @return first suitable item with type resultType from the response or null if response has no content
+     * @throws com.labs64.netlicensing.exception.NetLicensingException
+     */
+    @Throws(NetLicensingException::class)
+    internal fun <RES> post(
+        context: Context,
+        urlTemplate: String,
+        request: Form,
+        resultType: Class<RES>,
+        vararg meta: MetaInfo
+    ): RES? {
+        val netlicensing = request(context, HttpMethod.POST, urlTemplate, request, null)
+        // if response has no content
+        if (netlicensing == null) {
+            return null
+        } else {
+            if (meta != null && meta.size > 0 && meta[0] != null) {
+                if (netlicensing.id != null) {
+                    meta[0].setValue(Constants.PROP_ID, netlicensing.id)
+                }
+            }
+            return entityFactory.create(netlicensing, resultType)
+        }
+    }
     /**
      * Helper method for performing GET request to NetLicensing API service that returns page of items with type
      * resultType.
@@ -88,7 +178,7 @@ object NetLicensingService {
         request: Form?,
         queryParams: MutableMap<String, Any?>?
     ): Netlicensing? {
-        // CheckUtils.paramNotNull(context, "context")// TODO(AY): uncomment
+        CheckUtils.paramNotNull(context, "context")
 
         var combinedRequest = request
         var combinedQueryParams: MutableMap<String, Any?>? = queryParams
@@ -150,7 +240,10 @@ object NetLicensingService {
      * @throws RestException
      */
     @Throws(RestException::class)
-    private fun configure(restProvider: RestProvider, context: Context) {
+    private fun configure(
+        restProvider: RestProvider,
+        context: Context
+    ) {
         if (context.getSecurityMode() == null) {
             throw RestException("Security mode must be specified")
         }

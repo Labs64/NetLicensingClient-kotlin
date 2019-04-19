@@ -16,7 +16,7 @@ interface BaseEntity : Serializable {
 
     // Methods for working with custom properties
 
-    val properties: Map<String, String>?
+    val properties: MutableMap<String, String>?
 
     fun addProperty(property: String, value: String)
 
@@ -28,5 +28,5 @@ interface BaseEntity : Serializable {
      * @return object that represents HTML form data request encoded using the "application/x-www-form-urlencoded"
      * content type
      */
-    fun asRequestForm(): Form?
+    fun asRequestForm(): Form
 }

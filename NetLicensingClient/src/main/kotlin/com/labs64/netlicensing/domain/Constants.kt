@@ -110,9 +110,6 @@ object Constants {
 
         object Rental {
             val NAME = "Rental"
-
-            @Deprecated("please use com.labs64.netlicensing.domain.Constants.LicensingModel#VALID instead.")
-            val VALID = "valid"
             val RED_THRESHOLD = "redThreshold"
             val YELLOW_THRESHOLD = "yellowThreshold"
             val EXPIRATION_WARNING_LEVEL = "expirationWarningLevel"

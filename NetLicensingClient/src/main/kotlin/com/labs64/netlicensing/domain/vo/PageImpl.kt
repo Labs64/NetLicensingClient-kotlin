@@ -10,11 +10,11 @@ import java.io.Serializable
 </Entity> */
 class PageImpl<Entity : Any>(
     content: List<Entity>?,
-    override val pageNumber: Int,
-    override val itemsNumber: Int,
-    override val totalPages: Int,
-    override val totalItems: Long,
-    private val hasNext: Boolean
+    override val pageNumber: Int?,
+    override val itemsNumber: Int?,
+    override val totalPages: Int?,
+    override val totalItems: Long?,
+    private val hasNext: Boolean?
 ) : Page<Entity>, Serializable {
 
     override val content = ArrayList<Entity>()
@@ -25,7 +25,7 @@ class PageImpl<Entity : Any>(
         this.content.addAll(content!!)
     }
 
-    override fun hasNext(): Boolean {
+    override fun hasNext(): Boolean? {
         return hasNext
     }
 

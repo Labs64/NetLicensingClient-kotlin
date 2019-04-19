@@ -7,9 +7,9 @@ import javax.xml.bind.DatatypeConverter
 
 object Money {
 
-    private var amount: BigDecimal? = null
+    var amount: BigDecimal? = null
 
-    private var currencyCode: String? = null
+    var currencyCode: String? = null
 
     fun convertPrice(rawPrice: String, rawCurrency: String): Money {
         val target = this

@@ -1,11 +1,5 @@
 package com.labs64.netlicensing.domain.vo
 
-/**
- * A page is a sub-list of a list of objects. It allows gain information about the position of it in the containing
- * entire list.
- *
- * @param <Entity>
-</Entity> */
 interface Page<Entity> : Iterable<Entity> {
 
     /**
@@ -13,28 +7,28 @@ interface Page<Entity> : Iterable<Entity> {
      *
      * @return the number of the current page.
      */
-    val pageNumber: Int
+    val pageNumber: Int?
 
     /**
      * Returns the number of elements on the page.
      *
      * @return the number of elements on the page.
      */
-    val itemsNumber: Int
+    val itemsNumber: Int?
 
     /**
      * Returns the number of total pages.
      *
      * @return the number of total pages
      */
-    val totalPages: Int
+    val totalPages: Int?
 
     /**
      * Returns the total amount of elements.
      *
      * @return the total amount of elements
      */
-    val totalItems: Long
+    val totalItems: Long?
 
     /**
      * Return container content.
@@ -48,7 +42,7 @@ interface Page<Entity> : Iterable<Entity> {
      *
      * @return true if there is a next page exists, otherwise false.
      */
-    operator fun hasNext(): Boolean
+    fun hasNext(): Boolean?
 
     /**
      * Returns if there is a content exists.

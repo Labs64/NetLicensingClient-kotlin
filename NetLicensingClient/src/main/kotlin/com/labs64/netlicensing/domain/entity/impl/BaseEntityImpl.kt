@@ -82,7 +82,7 @@ abstract class BaseEntityImpl : Visitable(), BaseEntity {
          *
          * @return the list of reserved property names
          */
-        val reservedProps: List<String>
+        val reservedProps: MutableList<String>
             get() {
                 val reserved = ArrayList<String>()
                 reserved.add(Constants.ID)
