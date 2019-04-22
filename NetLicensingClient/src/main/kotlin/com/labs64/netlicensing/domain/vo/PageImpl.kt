@@ -2,12 +2,6 @@ package com.labs64.netlicensing.domain.vo
 
 import java.io.Serializable
 
-/**
- * Basic `Page` implementation.
- *
- * @param <Entity>
- * the type of which the page consists.
-</Entity> */
 class PageImpl<Entity : Any>(
     content: List<Entity>?,
     override val pageNumber: Int?,
@@ -48,25 +42,6 @@ class PageImpl<Entity : Any>(
     }
 
     companion object {
-
-        /**
-         * Safe create instance of `Page`.
-         *
-         * @param content
-         * the content of this page, must not be null.
-         * @param pageNumber
-         * the number of the current page
-         * @param itemsNumber
-         * the number of elements on the page
-         * @param totalPages
-         * the number of total pages
-         * @param totalItems
-         * the total amount of elements
-         * @param hasNext
-         * is there a next page exists
-         * @param <E>
-         * type of page entity
-        </E> */
         fun <E : Any> createInstance(
             content: List<E>?,
             pageNumber: String?,

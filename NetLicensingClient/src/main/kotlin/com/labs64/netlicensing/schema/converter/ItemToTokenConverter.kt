@@ -9,38 +9,37 @@ import com.labs64.netlicensing.schema.SchemaFunction
 import com.labs64.netlicensing.schema.context.Item
 import com.labs64.netlicensing.util.DateUtils
 
-/**
- * Convert [Item] entity into [Token] object.
- */
 class ItemToTokenConverter : ItemToEntityBaseConverter<Token>() {
 
     @Throws(ConversionException::class)
-    override fun convert(source: Item): Token {
+    override fun convert(source: Item?): Token {
         val target = super.convert(source)
 
-        if (SchemaFunction.propertyByName(source.property, Constants.Token.EXPIRATION_TIME).value != null) {
-            target.expirationTime = DateUtils.parseDate(
+        source?.let {
+            if (SchemaFunction.propertyByName(source.property, Constants.Token.EXPIRATION_TIME).value != null) {
+                target.expirationTime = DateUtils.parseDate(
+                    SchemaFunction.propertyByName(
+                        source.property, Constants.Token.EXPIRATION_TIME
+                    ).value
+                ).time
+            }
+
+            target.tokenType = TokenType.parseString(
                 SchemaFunction.propertyByName(
-                    source.property, Constants.Token.EXPIRATION_TIME
+                    source.property,
+                    Constants.Token.TOKEN_TYPE
                 ).value
-            ).time
-        }
-
-        target.tokenType = TokenType.parseString(
-            SchemaFunction.propertyByName(
+            )
+            target.vendorNumber = SchemaFunction.propertyByName(
                 source.property,
-                Constants.Token.TOKEN_TYPE
+                Constants.Token.TOKEN_PROP_VENDORNUMBER
             ).value
-        )
-        target.vendorNumber = SchemaFunction.propertyByName(
-            source.property,
-            Constants.Token.TOKEN_PROP_VENDORNUMBER
-        ).value
 
-        // Custom properties
-        for (property in source.property) {
-            if (!TokenImpl.reservedProps.contains(property.name)) {
-                target.addProperty(property.name, property.value)
+            // Custom properties
+            for (property in source.property) {
+                if (!TokenImpl.reservedProps.contains(property.name)) {
+                    target.addProperty(property.name, property.value)
+                }
             }
         }
 

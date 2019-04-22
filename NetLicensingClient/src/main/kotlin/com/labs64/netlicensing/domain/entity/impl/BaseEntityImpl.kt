@@ -14,14 +14,20 @@ abstract class BaseEntityImpl : Visitable(), BaseEntity {
 
     override var active: Boolean? = null
 
-    override var properties: MutableMap<String, String> = ConcurrentHashMap()
+    override var properties: MutableMap<String, String>? = null
+        get() {
+            if (field == null) {
+                this.properties = ConcurrentHashMap()
+            }
+            return field
+        }
 
     override fun addProperty(property: String, value: String) {
-        properties[property] = value
+        properties?.set(property, value)
     }
 
     override fun removeProperty(property: String?) {
-        properties.remove(property)
+        properties?.remove(property)
     }
 
     override fun toString(): String {
@@ -75,13 +81,6 @@ abstract class BaseEntityImpl : Visitable(), BaseEntity {
     }
 
     companion object {
-        /**
-         * List of reserved properties is used for handling of custom properties. Property name that is included in the list
-         * can not be used as custom property name. The list is extended by each derived entity class until the final
-         * business entity.
-         *
-         * @return the list of reserved property names
-         */
         val reservedProps: MutableList<String>
             get() {
                 val reserved = ArrayList<String>()

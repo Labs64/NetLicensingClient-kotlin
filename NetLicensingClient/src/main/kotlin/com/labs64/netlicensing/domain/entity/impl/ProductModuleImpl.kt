@@ -7,9 +7,6 @@ import com.labs64.netlicensing.domain.entity.ProductModule
 import java.util.ArrayList
 import javax.ws.rs.core.MultivaluedMap
 
-/**
- * Default implementation of [com.labs64.netlicensing.domain.entity.ProductModule].
- */
 class ProductModuleImpl : BaseEntityImpl(), ProductModule {
 
     override var name: String? = null
@@ -24,7 +21,7 @@ class ProductModuleImpl : BaseEntityImpl(), ProductModule {
             return field
         }
 
-    val productModuleProperties: Map<String, String>
+    val productModuleProperties: Map<String, String>?
         get() = properties
 
     override var product: Product? = null
@@ -41,9 +38,6 @@ class ProductModuleImpl : BaseEntityImpl(), ProductModule {
     }
 
     companion object {
-        /**
-         * @see BaseEntityImpl.getReservedProps
-         */
         val reservedProps: List<String>
             get() {
                 val reserved = BaseEntityImpl.reservedProps

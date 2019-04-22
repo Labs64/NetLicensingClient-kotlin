@@ -40,7 +40,7 @@ class LicenseImpl : BaseEntityImpl(), License {
             return field
         }
 
-    val licenseProperties: MutableMap<String, String>
+    val licenseProperties: MutableMap<String, String>?
         get() = properties
 
     override fun asPropertiesMap(): MultivaluedMap<String, Any> {
@@ -53,15 +53,6 @@ class LicenseImpl : BaseEntityImpl(), License {
     }
 
     companion object {
-        /**
-         * @see BaseEntityImpl.getReservedProps
-         */
-        // maps to 'licensee'
-        // maps to 'licenseTemplate'
-        // maps to 'licenseTransactionJoins'
-        // used by shop, therefore disallowed for user
-        // used by shop, therefore disallowed for user
-        // used by shop, therefore disallowed for user
         val reservedProps: List<String>
             get() {
                 val reserved = BaseEntityImpl.reservedProps

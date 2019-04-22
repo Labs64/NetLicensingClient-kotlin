@@ -5,19 +5,18 @@ import com.labs64.netlicensing.domain.entity.impl.PaymentMethodImpl
 import com.labs64.netlicensing.exception.ConversionException
 import com.labs64.netlicensing.schema.context.Item
 
-/**
- * Convert [Item] entity into [PaymentMethod] object.
- */
 class ItemToPaymentMethodConverter : ItemToEntityBaseConverter<PaymentMethod>() {
 
     @Throws(ConversionException::class)
-    override fun convert(source: Item): PaymentMethod {
+    override fun convert(source: Item?): PaymentMethod {
         val target = super.convert(source)
 
-        // Custom properties
-        for (property in source.property) {
-            if (!PaymentMethodImpl.reservedProps.contains(property.name)) {
-                target.addProperty(property.name, property.value)
+        source?.let {
+            // Custom properties
+            for (property in source.property) {
+                if (!PaymentMethodImpl.reservedProps.contains(property.name)) {
+                    target.addProperty(property.name, property.value)
+                }
             }
         }
 

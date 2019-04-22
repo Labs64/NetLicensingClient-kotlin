@@ -36,17 +36,6 @@ class ProductDiscountImpl : ProductDiscount, Serializable {
             }
         }
 
-    /**
-     * Gets the discount amount as string, with '%' sign at the end indicating discount is given in percent.
-     *
-     * @return the string amount
-     */
-    /**
-     * Sets the discount amount from string, '%' sign at the end indicates discount is provided in percent.
-     *
-     * @param amount
-     * discount amount as string
-     */
     var stringAmount: String
         get() {
             if (amountFix != null) {

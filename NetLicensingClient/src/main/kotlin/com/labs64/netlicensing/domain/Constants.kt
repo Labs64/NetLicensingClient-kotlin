@@ -1,12 +1,6 @@
 package com.labs64.netlicensing.domain
 
-/**
- * The class Constants declares entities field names and properties constants.
- */
 object Constants {
-
-    // CHECKSTYLE:OFF
-
     val ID = "id"
     val ACTIVE = "active"
     val NUMBER = "number"
@@ -177,6 +171,4 @@ object Constants {
         val VALIDATION_RESULT_TYPE = "ProductModuleValidation"
         val DEFAULT_TTL_MINUTES = 60 * 24 // 1 day
     }
-
-    // CHECKSTYLE:ON
 }

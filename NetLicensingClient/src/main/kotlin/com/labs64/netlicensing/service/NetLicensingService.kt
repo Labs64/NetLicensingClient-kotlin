@@ -39,21 +39,6 @@ object NetLicensingService {
         return instance
     }
 
-    /**
-     * Helper method for performing GET request to NetLicensing API services. Finds and returns first suitable item with
-     * type resultType from the response.
-     *
-     * @param context
-     * context for the NetLicensing API call
-     * @param urlTemplate
-     * the REST URL template
-     * @param queryParams
-     * The REST query parameters values. May be null if there are no parameters.
-     * @param resultType
-     * the type of the result
-     * @return first suitable item with type resultType from the response
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     */
     @Throws(NetLicensingException::class)
     internal operator fun <RES> get(
         context: Context,
@@ -63,25 +48,12 @@ object NetLicensingService {
         vararg meta: MetaInfo
     ): RES {
         val netlicensing = request(context, HttpMethod.GET, urlTemplate, null, queryParams)
-        if (meta != null && meta.size > 0 && meta[0] != null) {
-            if (netlicensing!!.id != null) {
-                meta[0].setValue(Constants.PROP_ID, netlicensing.id)
-            }
+        if (meta.size > 0 && netlicensing!!.id != null) {
+            meta[0].setValue(Constants.PROP_ID, netlicensing.id)
         }
         return entityFactory.create(netlicensing!!, resultType)
     }
 
-    /**
-     * Helper method for performing DELETE request to NetLicensing API services.
-     *
-     * @param context
-     * context for the NetLicensing API call
-     * @param urlTemplate
-     * the REST URL template
-     * @param queryParams
-     * The REST query parameters values. May be null if there are no parameters.
-     * @throws NetLicensingException
-     */
     @Throws(NetLicensingException::class)
     internal fun delete(
         context: Context,
@@ -91,21 +63,6 @@ object NetLicensingService {
         request(context, HttpMethod.DELETE, urlTemplate, null, queryParams)
     }
 
-    /**
-     * Helper method for performing POST request to NetLicensing API services. Finds and returns first suitable item
-     * with type resultType from the response.
-     *
-     * @param context
-     * context for the NetLicensing API call
-     * @param urlTemplate
-     * the REST URL template
-     * @param request
-     * The request body to be sent to the server. May be null.
-     * @param resultType
-     * the type of the result
-     * @return first suitable item with type resultType from the response or null if response has no content
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     */
     @Throws(NetLicensingException::class)
     internal fun <RES> post(
         context: Context,
@@ -119,29 +76,13 @@ object NetLicensingService {
         if (netlicensing == null) {
             return null
         } else {
-            if (meta != null && meta.size > 0 && meta[0] != null) {
-                if (netlicensing.id != null) {
-                    meta[0].setValue(Constants.PROP_ID, netlicensing.id)
-                }
+            if (meta.size > 0 && netlicensing.id != null) {
+                meta[0].setValue(Constants.PROP_ID, netlicensing.id)
             }
             return entityFactory.create(netlicensing, resultType)
         }
     }
-    /**
-     * Helper method for performing GET request to NetLicensing API service that returns page of items with type
-     * resultType.
-     *
-     * @param context
-     * context for the NetLicensing API call
-     * @param urlTemplate
-     * the REST URL template
-     * @param queryParams
-     * The REST query parameters values. May be null if there are no parameters.
-     * @param resultType
-     * the type of the item of the result page
-     * @return page of items with type resultType from the response
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     */
+
     @Throws(NetLicensingException::class)
     internal fun <RES : Any> list(
         context: Context,
@@ -153,23 +94,6 @@ object NetLicensingService {
         return entityFactory.createPage(netlicensing, resultType)
     }
 
-    /**
-     * Helper method for performing request to NetLicensing API services. Knows about context for the NetLicensing API
-     * calls, does authentication, provides error handling based on status of the response.
-     *
-     * @param context
-     * context for the NetLicensing API call
-     * @param method
-     * the HTTP method to be used, i.e. GET, POST, DELETE
-     * @param urlTemplate
-     * the REST URL template
-     * @param request
-     * The request body to be sent to the server. May be null.
-     * @param queryParams
-     * The REST query parameters values. May be null if there are no parameters.
-     * @return [Netlicensing] response object
-     * @throws NetLicensingException
-     */
     @Throws(NetLicensingException::class)
     fun request(
         context: Context,
@@ -187,7 +111,7 @@ object NetLicensingService {
                 if (combinedRequest == null) {
                     combinedRequest = Form()
                 }
-                combinedRequest!!.param(Constants.Vendor.VENDOR_NUMBER, context.getVendorNumber())
+                combinedRequest.param(Constants.Vendor.VENDOR_NUMBER, context.getVendorNumber())
             } else {
                 if (combinedQueryParams == null) {
                     combinedQueryParams = HashMap()
@@ -200,7 +124,7 @@ object NetLicensingService {
         configure(restProvider, context)
 
         val response = restProvider.call(
-            method, urlTemplate, combinedRequest, Netlicensing::class.java!!,
+            method, urlTemplate, combinedRequest, Netlicensing::class.java,
             combinedQueryParams
         )
 
@@ -230,15 +154,6 @@ object NetLicensingService {
         }
     }
 
-    /**
-     * Passes the authentication data specified in the context of the call to the RESTful provider.
-     *
-     * @param restProvider
-     * RESTful provider to be authenticated
-     * @param context
-     * additional context
-     * @throws RestException
-     */
     @Throws(RestException::class)
     private fun configure(
         restProvider: RestProvider,
@@ -265,11 +180,6 @@ object NetLicensingService {
         }
     }
 
-    /**
-     * @param status
-     * info about status
-     * @return true if HTTP status represents client error or server error, false otherwise
-     */
     private fun isErrorStatus(status: Response.Status): Boolean {
         return status.family == Response.Status.Family.CLIENT_ERROR || status.family == Response.Status.Family.SERVER_ERROR
     }

@@ -14,16 +14,7 @@ import org.apache.commons.lang3.StringUtils
 
 object UtilityService {
 
-    /**
-     * Returns all license types.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @return collection of available license types or null/empty list if nothing found.
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These exceptions
-     * will be transformed to the corresponding service response messages.
-     */
+    @Suppress("UNCHECKED_CAST")
     @Throws(NetLicensingException::class)
     fun listLicenseTypes(context: Context): Page<String> {
         val params = HashMap<String, Any?>()
@@ -49,16 +40,7 @@ object UtilityService {
         )
     }
 
-    /**
-     * Returns all licensing models.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @return collection of available license models or null/empty list if nothing found.
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These exceptions
-     * will be transformed to the corresponding service response messages.
-     */
+    @Suppress("UNCHECKED_CAST")
     @Throws(NetLicensingException::class)
     fun listLicensingModels(context: Context): Page<String> {
         val params = HashMap<String, Any?>()
@@ -83,18 +65,6 @@ object UtilityService {
         )
     }
 
-    /**
-     * Returns all countries.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param filter
-     * reserved for the future use, must be omitted / set to NULL
-     * @return collection of available countries or null/empty list if nothing found.
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These
-     * exceptions will be transformed to the corresponding service response messages.
-     */
     @Throws(NetLicensingException::class)
     fun listCountries(context: Context, filter: String?): Page<Country>? {
 

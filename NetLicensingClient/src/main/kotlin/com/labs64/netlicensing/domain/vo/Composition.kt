@@ -14,11 +14,11 @@ class Composition : Serializable {
 
     var value: String? = null
 
-    constructor() { // list
+    constructor() {
         value = null
     }
 
-    constructor(value: String) { // property value
+    constructor(value: String) {
         this.value = value
     }
 

@@ -5,9 +5,6 @@ import com.labs64.netlicensing.domain.entity.Country
 import java.math.BigDecimal
 import javax.ws.rs.core.MultivaluedMap
 
-/**
- * Default implementation of [com.labs64.netlicensing.domain.entity.Country].
- */
 class CountryImpl : BaseEntityImpl(), Country {
 
     override var code: String? = null

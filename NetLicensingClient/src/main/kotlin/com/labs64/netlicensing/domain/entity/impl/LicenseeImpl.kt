@@ -22,15 +22,10 @@ class LicenseeImpl : BaseEntityImpl(), Licensee {
             return field
         }
 
-    val licenseeProperties: Map<String, String>
+    val licenseeProperties: Map<String, String>?
         get() = properties
 
     companion object {
-        /**
-         * @see BaseEntityImpl.getReservedProps
-         */
-        // maps to 'product'
-        // used by shop, therefore disallowed for user
         val reservedProps: List<String>
             get() {
                 val reserved = BaseEntityImpl.reservedProps

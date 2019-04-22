@@ -4,28 +4,10 @@ import java.util.concurrent.ConcurrentHashMap
 
 class ValidationParameters {
 
-    /**
-     * Sets the target product
-     *
-     * @param productNumber
-     * optional productNumber, must be provided in case licensee auto-create is enabled
-     */
     var productNumber: String? = null
-    /**
-     * Sets the name for the new licensee
-     *
-     * @param licenseeName
-     * optional human-readable licensee name in case licensee will be auto-created. This parameter must not
-     * be the name, but can be used to store any other useful string information with new licensees, up to
-     * 1000 characters.
-     */
+
     var licenseeName: String? = null
-    /**
-     * Sets the licensee secret
-     *
-     * @param licenseeSecret
-     * licensee secret stored on the client side. Refer to Licensee Secret documentation for details.
-     */
+
     var licenseeSecret: String? = null
 
     var parameters: MutableMap<String, MutableMap<String, String>>? = null

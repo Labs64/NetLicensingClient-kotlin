@@ -6,9 +6,6 @@ import com.labs64.netlicensing.domain.vo.TokenType
 import java.util.Date
 import javax.ws.rs.core.MultivaluedMap
 
-/**
- * Default implementation of [com.labs64.netlicensing.domain.entity.Token].
- */
 class TokenImpl : BaseEntityImpl(), Token {
 
     override var vendorNumber: String? = null
@@ -30,7 +27,7 @@ class TokenImpl : BaseEntityImpl(), Token {
 
     override var tokenType: TokenType? = null
 
-    val tokenProperties: Map<String, String>
+    val tokenProperties: Map<String, String>?
         get() = properties
 
     override fun asPropertiesMap(): MultivaluedMap<String, Any> {
@@ -42,9 +39,6 @@ class TokenImpl : BaseEntityImpl(), Token {
     }
 
     companion object {
-        /**
-         * @see BaseEntityImpl.getReservedProps
-         */
         val reservedProps: List<String>
             get() {
                 val reserved = BaseEntityImpl.reservedProps

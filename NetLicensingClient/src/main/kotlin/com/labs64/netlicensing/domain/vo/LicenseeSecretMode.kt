@@ -13,11 +13,6 @@ enum class LicenseeSecretMode {
         return LicenseeSecretMode.DISABLED
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Enum#toString()
-     */
     override fun toString(): String {
         return name
     }

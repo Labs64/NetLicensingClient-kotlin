@@ -26,14 +26,6 @@
         </license>
     </licenses>
 
-    <!--TODO(AY): add scm-->
-    <!--<scm>-->
-        <!--<url>https://github.com/Labs64/NetLicensingClient-java</url>-->
-        <!--<connection>scm:git:git@github.com:Labs64/NetLicensingClient-java.git</connection>-->
-        <!--<developerConnection>scm:git:git@github.com:Labs64/NetLicensingClient-java.git</developerConnection>-->
-        <!--<tag>HEAD</tag>-->
-    <!--</scm>-->
-
     <issueManagement>
         <system>GitHub Issues</system>
         <url>https://github.com/yushkevich/NetLicensingClient-kotlin/issues</url>
@@ -60,7 +52,6 @@
     </developers>
 
     <contributors>
-        <!--TODO(AY): add some-->
     </contributors>
 
     <modules>
@@ -80,6 +71,8 @@
         <commons-lang3.version>3.8.1</commons-lang3.version>
         <commons-collections4.version>4.2</commons-collections4.version>
         <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
+        <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
+        <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
     </properties>
 
     <dependencyManagement>
@@ -165,6 +158,21 @@
     </dependencies>
 
     <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>build-helper-maven-plugin</artifactId>
+                    <version>1.10</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-shade-plugin</artifactId>
+                    <version>${maven-shade-plugin.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+
         <sourceDirectory>NetLicensingClient/src/main/kotlin</sourceDirectory>
         <testSourceDirectory>NetLicensingClient/src/test/kotlin</testSourceDirectory>
         <plugins>

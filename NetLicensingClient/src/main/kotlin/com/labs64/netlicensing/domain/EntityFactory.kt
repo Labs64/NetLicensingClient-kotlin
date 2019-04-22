@@ -54,16 +54,6 @@ class EntityFactory {
 
     private var convertersCache: MutableMap<Class<*>, Converter<Item, *>>? = ConcurrentHashMap()
 
-    /**
-     * Creates page of entities of specified class from service response
-     *
-     * @param netlicensing
-     * service XML response
-     * @param entityClass
-     * entity class
-     * @return page of entities created from service response
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     */
     @Throws(NetLicensingException::class)
     fun <T : Any> createPage(netlicensing: Netlicensing?, entityClass: Class<T>): Page<T> {
         if (netlicensing?.items != null) {
@@ -104,16 +94,7 @@ class EntityFactory {
         }
     }
 
-    /**
-     * Creates entity of specific class from service response
-     *
-     * @param netlicensing
-     * service XML response
-     * @param entityClass
-     * entity class
-     * @return entity class instance created from service response
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     */
+    @Suppress("UNCHECKED_CAST")
     @Throws(NetLicensingException::class)
     fun <T> create(netlicensing: Netlicensing, entityClass: Class<T>): T {
         if (entityClass == ValidationResult::class.java) {
@@ -124,16 +105,6 @@ class EntityFactory {
         }
     }
 
-    /**
-     * Finds and returns from [Netlicensing] object suitable item of specified type
-     *
-     * @param netlicensing
-     * [Netlicensing] response object
-     * @param type
-     * class type to be matched
-     * @return suitable item of specified type
-     * @throws WrongResponseFormatException
-     */
     @Throws(WrongResponseFormatException::class)
     private fun findSuitableItemOfType(netlicensing: Netlicensing, type: Class<*>): Item {
         if (netlicensing.items != null) {
@@ -146,28 +117,10 @@ class EntityFactory {
         throw WrongResponseFormatException("Service response doesn't contain item of type " + type.canonicalName)
     }
 
-    /**
-     * Check whether the [Item] object is of provided type.
-     *
-     * @param item
-     * [Item] object
-     * @param type
-     * class type to be matched
-     * @return true if item is the XML item of class "type"
-     */
     private fun isItemOfType(item: Item, type: Class<*>): Boolean {
         return type.simpleName == item.type || type.simpleName == item.type + "Properties"
     }
 
-    /**
-     * Gets the entity class by response item type.
-     *
-     * @param item
-     * the item
-     * @return the entity class, if match is found
-     * @throws WrongResponseFormatException
-     * if match is not found
-     */
     @Throws(WrongResponseFormatException::class)
     private fun getEntityClassByItemType(item: Item): Class<*> {
         val itemType = item.type
@@ -180,13 +133,7 @@ class EntityFactory {
         throw WrongResponseFormatException("Service response contains unexpected item type $itemType")
     }
 
-    /**
-     * Returns converter that is able to convert an [Item] object to an entity of specified class
-     *
-     * @param entityClass
-     * entity class
-     * @return [Converter] suitable for the given entity class
-     */
+    @Suppress("UNCHECKED_CAST")
     private fun <T> converterFor(entityClass: Class<T>): Converter<Item, T> {
         var converter: Converter<Item, T>? = null
         try {

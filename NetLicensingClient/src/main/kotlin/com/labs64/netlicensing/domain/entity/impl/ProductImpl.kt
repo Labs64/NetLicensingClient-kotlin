@@ -79,9 +79,6 @@ class ProductImpl : BaseEntityImpl(), Product {
     }
 
     companion object {
-        /**
-         * @see BaseEntityImpl.getReservedProps
-         */
         val reservedProps: MutableList<String>
             get() {
                 val reserved = BaseEntityImpl.reservedProps

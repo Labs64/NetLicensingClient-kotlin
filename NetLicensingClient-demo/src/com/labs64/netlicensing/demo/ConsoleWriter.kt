@@ -3,9 +3,6 @@ package com.labs64.netlicensing.demo
 import com.labs64.netlicensing.domain.vo.Page
 import java.lang.System.out
 
-/**
- * Utility class for writing to console
- */
 class ConsoleWriter {
 
     fun writeMessage(msg: String) {
@@ -28,8 +25,8 @@ class ConsoleWriter {
     fun writePage(msg: String, page: Page<*>?) {
         out.println(msg)
         if (page != null && page.hasContent()) {
-            for (`object` in page.content) {
-                out.println(`object`)
+            for (any in page.content) {
+                out.println(any)
             }
         }
         out.println()

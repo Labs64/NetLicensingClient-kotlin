@@ -14,11 +14,6 @@ import javax.ws.rs.core.MediaType
 import javax.ws.rs.core.NoContentException
 import javax.ws.rs.core.Response
 
-/**
- * Low level REST client implementation.
- * <p>
- * This will also log each request in INFO level.
- */
 class RestProviderJersey(private val basePath: String) : AbstractRestProvider() {
 
     private val DEFAULT_ACCEPT_TYPES = arrayOf<MediaType>(MediaType.APPLICATION_XML_TYPE)
@@ -72,12 +67,7 @@ class RestProviderJersey(private val basePath: String) : AbstractRestProvider() 
             get() = true
     }
 
-    /**
-     * Get static instance of RESTful client
-     *
-     * @return RESTful client
-     */
-    private fun getClient(configuration: RestProvider.Configuration?): Client? {
+    private fun getClient(): Client? {
         // initialize client only once since it's expensive operation
         if (client == null) {
             synchronized(RestProviderJersey::class.java) {
@@ -89,26 +79,12 @@ class RestProviderJersey(private val basePath: String) : AbstractRestProvider() 
         return client
     }
 
-    /**
-     * Get the RESTful client target
-     *
-     * @param basePath
-     * base provider path
-     * @return RESTful client target
-     */
     private fun getTarget(basePath: String): WebTarget {
-        return getClient(configuration)!!.target(basePath)
+        return getClient()!!.target(basePath)
     }
 
-    /**
-     * @param target
-     * target object, to which the authentication headers will be added
-     * @param auth
-     * an object providing the authentication info
-     */
     private fun addAuthHeaders(target: WebTarget, auth: Authentication?) {
         auth?.let {
-            // see also https://jersey.java.net/documentation/latest/client.html, chapter "Securing a Client"
             target.register(HttpAuthenticationFeature.basic(auth.username, auth.password))
         }
     }

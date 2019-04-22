@@ -33,9 +33,6 @@ class NetLicensingClientDemo {
 
     companion object {
 
-        /**
-         * Exit codes
-         */
         private val CODE_OK = 0
         private val CODE_ERROR = 1
 

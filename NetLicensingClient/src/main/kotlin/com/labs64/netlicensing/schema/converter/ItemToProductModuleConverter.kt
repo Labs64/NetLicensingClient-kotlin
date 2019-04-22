@@ -11,22 +11,24 @@ import com.labs64.netlicensing.schema.context.Item
 class ItemToProductModuleConverter : ItemToEntityBaseConverter<ProductModule>() {
 
     @Throws(ConversionException::class)
-    override fun convert(source: Item): ProductModule {
+    override fun convert(source: Item?): ProductModule {
         val target = super.convert(source)
+        source?.let {
+            target.name = SchemaFunction.propertyByName(source.property, Constants.NAME).value
+            target.licensingModel = SchemaFunction.propertyByName(
+                source.property,
+                Constants.ProductModule.LICENSING_MODEL
+            ).value
 
-        target.name = SchemaFunction.propertyByName(source.property, Constants.NAME).value
-        target.licensingModel = SchemaFunction.propertyByName(
-            source.property,
-            Constants.ProductModule.LICENSING_MODEL
-        ).value
+            target.product = ProductImpl()
+            target.product!!.number =
+                    SchemaFunction.propertyByName(source.property, Constants.Product.PRODUCT_NUMBER).value
 
-        target.product = ProductImpl()
-        target.product!!.number = SchemaFunction.propertyByName(source.property, Constants.Product.PRODUCT_NUMBER).value
-
-        // Custom properties
-        for (property in source.property) {
-            if (!ProductModuleImpl.reservedProps.contains(property.name)) {
-                target.addProperty(property.name, property.value)
+            // Custom properties
+            for (property in source.property) {
+                if (!ProductModuleImpl.reservedProps.contains(property.name)) {
+                    target.addProperty(property.name, property.value)
+                }
             }
         }
 

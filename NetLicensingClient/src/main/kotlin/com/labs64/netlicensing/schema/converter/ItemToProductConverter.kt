@@ -14,54 +14,59 @@ import javax.xml.bind.DatatypeConverter
 class ItemToProductConverter : ItemToEntityBaseConverter<Product>() {
 
     @Throws(ConversionException::class)
-    override fun convert(source: Item): Product {
+    override fun convert(source: Item?): Product {
         val target = super.convert(source)
-
-        target.name = SchemaFunction.propertyByName(source.property, Constants.NAME).value
-        target.version = SchemaFunction.propertyByName(source.property, Constants.VERSION).value
-        target.licenseeAutoCreate = java.lang.Boolean.parseBoolean(
-            SchemaFunction.propertyByName(
-                source.property,
-                Constants.Product.LICENSEE_AUTO_CREATE, java.lang.Boolean.FALSE.toString()
-            ).value
-        )
-        target.description = SchemaFunction.propertyByName(source.property, Constants.Product.DESCRIPTION)
-            .value
-        target.licensingInfo = SchemaFunction.propertyByName(source.property, Constants.Product.LICENSING_INFO)
-            .value
-
-        for (list in source.list) {
-            if (Constants.DISCOUNT == list.name) {
-                val productDiscount = ProductDiscountImpl()
-                val price = convertPrice(list.property, Constants.Product.Discount.TOTAL_PRICE)
-                productDiscount.totalPrice = price.amount
-                productDiscount.currency = price.currencyCode
-                if (SchemaFunction.propertyByName(list.property, Constants.Product.Discount.AMOUNT_FIX).value != null) {
-                    val amountFix = convertPrice(list.property, Constants.Product.Discount.AMOUNT_FIX)
-                    productDiscount.amountFix = amountFix.amount
-                }
-                val amountPercent = SchemaFunction.propertyByName(
-                    list.property,
-                    Constants.Product.Discount.AMOUNT_PERCENT
+        source?.let {
+            target.name = SchemaFunction.propertyByName(source.property, Constants.NAME).value
+            target.version = SchemaFunction.propertyByName(source.property, Constants.VERSION).value
+            target.licenseeAutoCreate = java.lang.Boolean.parseBoolean(
+                SchemaFunction.propertyByName(
+                    source.property,
+                    Constants.Product.LICENSEE_AUTO_CREATE, java.lang.Boolean.FALSE.toString()
                 ).value
-                if (amountPercent != null) {
-                    try {
-                        productDiscount.amountPercent = DatatypeConverter.parseDecimal(amountPercent)
-                    } catch (e: NumberFormatException) {
-                        throw IllegalArgumentException(
-                            "Format for discount amount in percent is not correct, expected numeric format"
-                        )
-                    }
-                }
-                target.addDiscount(productDiscount)
-            }
-        }
-        Collections.sort<ProductDiscount>(target.productDiscounts!!)
+            )
+            target.description = SchemaFunction.propertyByName(source.property, Constants.Product.DESCRIPTION)
+                .value
+            target.licensingInfo = SchemaFunction.propertyByName(source.property, Constants.Product.LICENSING_INFO)
+                .value
 
-        // Custom properties
-        for (property in source.property) {
-            if (!ProductImpl.reservedProps.contains(property.name)) {
-                target.addProperty(property.name, property.value)
+            for (list in source.list) {
+                if (Constants.DISCOUNT == list.name) {
+                    val productDiscount = ProductDiscountImpl()
+                    val price = convertPrice(list.property, Constants.Product.Discount.TOTAL_PRICE)
+                    productDiscount.totalPrice = price.amount
+                    productDiscount.currency = price.currencyCode
+                    if (SchemaFunction.propertyByName(
+                            list.property,
+                            Constants.Product.Discount.AMOUNT_FIX
+                        ).value != null
+                    ) {
+                        val amountFix = convertPrice(list.property, Constants.Product.Discount.AMOUNT_FIX)
+                        productDiscount.amountFix = amountFix.amount
+                    }
+                    val amountPercent = SchemaFunction.propertyByName(
+                        list.property,
+                        Constants.Product.Discount.AMOUNT_PERCENT
+                    ).value
+                    if (amountPercent != null) {
+                        try {
+                            productDiscount.amountPercent = DatatypeConverter.parseDecimal(amountPercent)
+                        } catch (e: NumberFormatException) {
+                            throw IllegalArgumentException(
+                                "Format for discount amount in percent is not correct, expected numeric format"
+                            )
+                        }
+                    }
+                    target.addDiscount(productDiscount)
+                }
+            }
+            Collections.sort<ProductDiscount>(target.productDiscounts!!)
+
+            // Custom properties
+            for (property in source.property) {
+                if (!ProductImpl.reservedProps.contains(property.name)) {
+                    target.addProperty(property.name, property.value)
+                }
             }
         }
         return target

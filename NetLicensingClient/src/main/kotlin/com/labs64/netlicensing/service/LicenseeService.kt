@@ -15,21 +15,6 @@ import javax.ws.rs.core.Form
 
 object LicenseeService {
 
-    /**
-     * Creates new licensee object with given properties.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param productNumber
-     * parent product to which the new licensee is to be added
-     * @param licensee
-     * non-null properties will be taken for the new object, null properties will either stay null, or will
-     * be set to a default value, depending on property.
-     * @return the newly created licensee object
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These exceptions will be transformed to the
-     * corresponding service response messages.
-     */
     @Throws(NetLicensingException::class)
     fun create(context: Context, productNumber: String, licensee: Licensee): Licensee? {
         CheckUtils.paramNotNull(licensee, "licensee")
@@ -38,21 +23,10 @@ object LicenseeService {
         if (StringUtils.isNotBlank(productNumber)) {
             form.param(Constants.Product.PRODUCT_NUMBER, productNumber)
         }
-        return NetLicensingService.getInstance()?.post(context, Constants.Licensee.ENDPOINT_PATH, form, Licensee::class.java)
+        return NetLicensingService.getInstance()
+            ?.post(context, Constants.Licensee.ENDPOINT_PATH, form, Licensee::class.java)
     }
 
-    /**
-     * Gets licensee by its number.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param number
-     * the licensee number
-     * @return the licensee
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These exceptions will be transformed to the
-     * corresponding service response messages.
-     */
     @Throws(NetLicensingException::class)
     operator fun get(context: Context, number: String): Licensee? {
         CheckUtils.paramNotEmpty(number, "number")
@@ -61,41 +35,16 @@ object LicenseeService {
             ?.get(context, Constants.Licensee.ENDPOINT_PATH + "/" + number, params, Licensee::class.java)
     }
 
-    /**
-     * Returns all licensees of a vendor.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param filter
-     * reserved for the future use, must be omitted / set to NULL
-     * @return list of licensees (of all products) or null/empty list if nothing found.
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These exceptions will be transformed to the
-     * corresponding service response messages.
-     */
     @Throws(NetLicensingException::class)
     fun list(context: Context, filter: String?): Page<Licensee>? {
         val params = HashMap<String, Any?>()
         if (StringUtils.isNotBlank(filter)) {
             params[Constants.FILTER] = filter
         }
-        return NetLicensingService.getInstance()?.list(context, Constants.Licensee.ENDPOINT_PATH, params, Licensee::class.java)
+        return NetLicensingService.getInstance()
+            ?.list(context, Constants.Licensee.ENDPOINT_PATH, params, Licensee::class.java)
     }
 
-    /**
-     * Updates licensee properties.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param number
-     * licensee number
-     * @param licensee
-     * non-null properties will be updated to the provided values, null properties will stay unchanged.
-     * @return updated licensee.
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These exceptions will be transformed to the
-     * corresponding service response messages.
-     */
     @Throws(NetLicensingException::class)
     fun update(context: Context, number: String, licensee: Licensee): Licensee? {
         CheckUtils.paramNotEmpty(number, "number")
@@ -107,19 +56,6 @@ object LicenseeService {
         )
     }
 
-    /**
-     * Deletes licensee.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param number
-     * licensee number
-     * @param forceCascade
-     * if true, any entities that depend on the one being deleted will be deleted too
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These exceptions will be transformed to the
-     * corresponding service response messages.
-     */
     @Throws(NetLicensingException::class)
     fun delete(context: Context, number: String, forceCascade: Boolean) {
         CheckUtils.paramNotEmpty(number, "number")
@@ -128,22 +64,6 @@ object LicenseeService {
         NetLicensingService.getInstance()?.delete(context, Constants.Licensee.ENDPOINT_PATH + "/" + number, params)
     }
 
-    /**
-     * Validates active licenses of the licensee.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param number
-     * licensee number
-     * @param validationParameters
-     * optional validation parameters. See ValidationParameters and licensing model documentation for
-     * details.
-     * @param meta
-     * optional parameter, receiving messages returned within response <infos> section.
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These
-     * exceptions will be transformed to the corresponding service response messages.
-    </infos> */
     @Throws(NetLicensingException::class)
     fun validate(
         context: Context,
@@ -183,19 +103,6 @@ object LicenseeService {
         )
     }
 
-    /**
-     * Transfer licenses between licensees.
-     *
-     * @param context
-     * determines the vendor on whose behalf the call is performed
-     * @param number
-     * the number of the licensee receiving licenses
-     * @param sourceLicenseeNumber
-     * the number of the licensee delivering licenses
-     * @throws com.labs64.netlicensing.exception.NetLicensingException
-     * any subclass of [com.labs64.netlicensing.exception.NetLicensingException]. These
-     * exceptions will be transformed to the corresponding service response messages.
-     */
     @Throws(NetLicensingException::class)
     fun transfer(context: Context, number: String, sourceLicenseeNumber: String) {
         CheckUtils.paramNotEmpty(number, "number")

@@ -11,7 +11,7 @@ import com.labs64.netlicensing.util.DateUtils
 class ItemsToValidationResultConverter : Converter<Netlicensing, ValidationResult> {
 
     @Throws(ConversionException::class)
-    override fun convert(source: Netlicensing): ValidationResult {
+    override fun convert(source: Netlicensing?): ValidationResult {
         val target = ValidationResult()
         if (source == null) {
             return target
@@ -63,11 +63,6 @@ class ItemsToValidationResultConverter : Converter<Netlicensing, ValidationResul
         return target
     }
 
-    /**
-     * @param list
-     * list to be converted
-     * @return converted [Composition] object
-     */
     private fun convertFromList(list: List): Composition {
         val composition = Composition()
         // convert properties

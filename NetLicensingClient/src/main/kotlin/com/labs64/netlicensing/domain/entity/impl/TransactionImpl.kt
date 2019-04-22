@@ -11,9 +11,6 @@ import java.util.ArrayList
 import java.util.Date
 import javax.ws.rs.core.MultivaluedMap
 
-/**
- * Default implementation of [com.labs64.netlicensing.domain.entity.Transaction].
- */
 class TransactionImpl : BaseEntityImpl(), Transaction {
 
     override var status: TransactionStatus? = null
@@ -64,7 +61,7 @@ class TransactionImpl : BaseEntityImpl(), Transaction {
             return field
         }
 
-    val transactionProperties: Map<String, String>
+    val transactionProperties: Map<String, String>?
         get() = properties
 
     override fun asPropertiesMap(): MultivaluedMap<String, Any> {
@@ -78,9 +75,6 @@ class TransactionImpl : BaseEntityImpl(), Transaction {
     }
 
     companion object {
-        /**
-         * @see BaseEntityImpl.getReservedProps
-         */
         val reservedProps: List<String>
             get() {
                 val reserved = BaseEntityImpl.reservedProps
