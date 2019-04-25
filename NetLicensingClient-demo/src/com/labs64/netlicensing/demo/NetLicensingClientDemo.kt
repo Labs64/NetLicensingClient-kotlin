@@ -90,9 +90,6 @@ class NetLicensingClientDemo {
 
                 val updateProduct = ProductImpl()
                 updateProduct.addProperty("Updated property name", "Updated value")
-                updateProduct.addProperty(
-                    Constants.Product.PROP_LICENSEE_SECRET_MODE, LicenseeSecretMode.PREDEFINED.toString()
-                )
                 product = ProductService.update(context, productNumber, updateProduct)
                 out.writeObject("Updated product:", product)
 
@@ -212,7 +209,6 @@ class NetLicensingClientDemo {
 
                 val updateLicensee = LicenseeImpl()
                 updateLicensee.addProperty("Updated property name", "Updated value")
-                updateLicensee.addProperty(Constants.Licensee.PROP_LICENSEE_SECRET, randomLicenseeSecret)
 
                 licensee = LicenseeService.update(context, licenseeNumber, updateLicensee)
                 out.writeObject("Updated licensee:", licensee)

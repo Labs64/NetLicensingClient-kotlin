@@ -51,7 +51,6 @@ object Constants {
         val DESCRIPTION = "description"
         val LICENSING_INFO = "licensingInfo"
         val DISCOUNTS = "discounts"
-        val PROP_LICENSEE_SECRET_MODE = "licenseeSecretMode"
         val PROP_VAT_MODE = "vatMode"
 
         object Discount {
@@ -66,6 +65,7 @@ object Constants {
         val PRODUCT_MODULE_NUMBER = "productModuleNumber"
         val PRODUCT_MODULE_NAME = "productModuleName"
         val LICENSING_MODEL = "licensingModel"
+        val PROP_LICENSEE_SECRET_MODE = "licenseeSecretMode"
     }
 
     object LicenseTemplate {
@@ -75,6 +75,7 @@ object Constants {
         val AUTOMATIC = "automatic"
         val HIDDEN = "hidden"
         val HIDE_LICENSES = "hideLicenses"
+        val PROP_LICENSEE_SECRET = "licenseeSecret"
     }
 
     object Licensee {
@@ -84,7 +85,6 @@ object Constants {
         val LICENSEE_NUMBER = "licenseeNumber"
         val SOURCE_LICENSEE_NUMBER = "sourceLicenseeNumber"
         val PROP_LICENSEE_NAME = "licenseeName"
-        val PROP_LICENSEE_SECRET = "licenseeSecret"
         val PROP_MARKED_FOR_TRANSFER = "markedForTransfer"
     }
 
@@ -92,6 +92,7 @@ object Constants {
         val ENDPOINT_PATH = "license"
         val HIDDEN = "hidden"
         val LICENSE_NUMBER = "licenseNumber"
+        val PROP_LICENSEE_SECRET = "licenseeSecret"
     }
 
     object LicensingModel {
@@ -133,6 +134,11 @@ object Constants {
 
         object Quota {
             val NAME = "Quota"
+        }
+
+        object NodeLocked {
+            val NAME = "NodeLocked"
+            val LICENSEE_SECRET = "licenseeSecret"
         }
     }
 

@@ -81,9 +81,6 @@ object LicenseeService {
             if (StringUtils.isNotBlank(validationParameters.licenseeName)) {
                 form.param(Constants.Licensee.PROP_LICENSEE_NAME, validationParameters.licenseeName)
             }
-            if (StringUtils.isNotBlank(validationParameters.licenseeSecret)) {
-                form.param(Constants.Licensee.PROP_LICENSEE_SECRET, validationParameters.licenseeSecret)
-            }
             var pmIndex = 0
             validationParameters.parameters?.forEach { productModuleValidationParams ->
                 form.param(

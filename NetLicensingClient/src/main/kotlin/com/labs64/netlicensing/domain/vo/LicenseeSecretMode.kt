@@ -2,7 +2,7 @@ package com.labs64.netlicensing.domain.vo
 
 enum class LicenseeSecretMode {
 
-    DISABLED, PREDEFINED, CLIENT;
+    PREDEFINED, CLIENT;
 
     fun parseString(value: String): LicenseeSecretMode {
         for (licenseeSecretMode in LicenseeSecretMode.values()) {
@@ -10,7 +10,7 @@ enum class LicenseeSecretMode {
                 return licenseeSecretMode
             }
         }
-        return LicenseeSecretMode.DISABLED
+        return LicenseeSecretMode.PREDEFINED
     }
 
     override fun toString(): String {
