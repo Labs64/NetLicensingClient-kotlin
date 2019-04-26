@@ -11,7 +11,6 @@ import com.labs64.netlicensing.domain.entity.impl.TokenImpl
 import com.labs64.netlicensing.domain.vo.Context
 import com.labs64.netlicensing.domain.vo.Currency
 import com.labs64.netlicensing.domain.vo.LicenseType
-import com.labs64.netlicensing.domain.vo.LicenseeSecretMode
 import com.labs64.netlicensing.domain.vo.SecurityMode
 import com.labs64.netlicensing.domain.vo.TokenType
 import com.labs64.netlicensing.domain.vo.ValidationParameters
@@ -362,31 +361,30 @@ class NetLicensingClientDemo {
 
                 out.writeMessage("All done.")
             } catch (e: NetLicensingException) {
-                out.writeException("Got NetLicensing exception:", e);
-                exitCode = CODE_ERROR;
+                out.writeException("Got NetLicensing exception:", e)
+                exitCode = CODE_ERROR
             } catch (e: Exception) {
-                out.writeException("Got exception:", e);
-                exitCode = CODE_ERROR;
+                out.writeException("Got exception:", e)
+                exitCode = CODE_ERROR
             } finally {
                 // Cleanup
                 try {
                     // delete APIKey in case it was used (exists)
                     if (StringUtils.isNotBlank(context.getApiKey())) {
                         context.getApiKey()?.let {
-                            TokenService.delete(context, it);
-                            context.setApiKey(null);
+                            TokenService.delete(context, it)
+                            context.setApiKey(null)
                         }
                     }
 
                     // delete test product with all its related items
-                    ProductService.delete(context, productNumber, true);
-
+                    ProductService.delete(context, productNumber, true)
                 } catch (e: NetLicensingException) {
-                    out.writeException("Got NetLicensing exception during cleanup:", e);
-                    exitCode = CODE_ERROR;
+                    out.writeException("Got NetLicensing exception during cleanup:", e)
+                    exitCode = CODE_ERROR
                 } catch (e: Exception) {
-                    out.writeException("Got exception during cleanup:", e);
-                    exitCode = CODE_ERROR;
+                    out.writeException("Got exception during cleanup:", e)
+                    exitCode = CODE_ERROR
                 }
             }
 

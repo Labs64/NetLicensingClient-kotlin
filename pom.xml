@@ -158,6 +158,9 @@
     </dependencies>
 
     <build>
+        <sourceDirectory>NetLicensingClient/src/main/kotlin</sourceDirectory>
+        <testSourceDirectory>NetLicensingClient/src/test/kotlin</testSourceDirectory>
+
         <pluginManagement>
             <plugins>
                 <plugin>
@@ -173,8 +176,6 @@
             </plugins>
         </pluginManagement>
 
-        <sourceDirectory>NetLicensingClient/src/main/kotlin</sourceDirectory>
-        <testSourceDirectory>NetLicensingClient/src/test/kotlin</testSourceDirectory>
         <plugins>
             <plugin>
                 <groupId>org.jvnet.jaxb2.maven2</groupId>
@@ -205,6 +206,4 @@
             </plugin>
         </plugins>
     </build>
-
-
 </project>
