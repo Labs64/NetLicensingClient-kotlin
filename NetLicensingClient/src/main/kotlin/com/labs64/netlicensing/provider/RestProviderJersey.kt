@@ -2,6 +2,7 @@ package com.labs64.netlicensing.provider
 
 import com.labs64.netlicensing.exception.RestException
 import com.labs64.netlicensing.provider.auth.Authentication
+import com.labs64.netlicensing.util.PackageUtils
 import org.glassfish.jersey.client.ClientConfig
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature
 import javax.ws.rs.ProcessingException
@@ -61,7 +62,8 @@ class RestProviderJersey(private val basePath: String) : AbstractRestProvider() 
 
     private inner class JerseyDefaultConfig : RestProvider.Configuration {
         override val userAgent: String
-            get() = "NetLicensing/Java " + System.getProperty("java.version") + " (http://netlicensing.io)"
+            get() = "NetLicensing/Kotlin " + PackageUtils.getImplementationVersion() + "/" + KotlinVersion.CURRENT +
+                    " (http://netlicensing.io)"
 
         override val isLoggingEnabled: Boolean
             get() = true
