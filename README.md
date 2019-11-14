@@ -4,6 +4,6 @@
 
 [![Build Status](https://travis-ci.org/Labs64/NetLicensingClient-kotlin.svg?branch=master)](https://travis-ci.org/Labs64/NetLicensingClient-kotlin)
 
-Kotlin wrapper for Labs64 NetLicensing [RESTful API](http://l64.cc/nl10)
+Kotlin wrapper for Labs64 NetLicensing [RESTful API](https://netlicensing.io/wiki/restful-api)
 
 Visit Labs64 NetLicensing at https://netlicensing.io
