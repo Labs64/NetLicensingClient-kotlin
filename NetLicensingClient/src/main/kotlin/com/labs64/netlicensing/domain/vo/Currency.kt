@@ -3,7 +3,7 @@ package com.labs64.netlicensing.domain.vo
 import org.apache.commons.lang3.StringUtils
 
 enum class Currency() {
-    NONE, EUR;
+    NONE, EUR, USD;
 
     companion object {
 
