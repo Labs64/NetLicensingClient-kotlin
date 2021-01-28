@@ -73,31 +73,7 @@ object LicenseeService {
     ): ValidationResult? {
         CheckUtils.paramNotEmpty(number, "number")
 
-        val form = Form()
-        if (validationParameters != null) {
-            if (StringUtils.isNotBlank(validationParameters.productNumber)) {
-                form.param(Constants.Product.PRODUCT_NUMBER, validationParameters.productNumber)
-            }
-            if (StringUtils.isNotBlank(validationParameters.licenseeName)) {
-                form.param(Constants.Licensee.PROP_LICENSEE_NAME, validationParameters.licenseeName)
-            }
-            var pmIndex = 0
-            validationParameters.parameters?.forEach { productModuleValidationParams ->
-                form.param(
-                    Constants.ProductModule.PRODUCT_MODULE_NUMBER + Integer.toString(pmIndex),
-                    productModuleValidationParams.key
-                )
-                for (param in productModuleValidationParams.value.entries) {
-                    form.param(param.key + Integer.toString(pmIndex), param.value)
-                }
-                ++pmIndex
-            }
-        }
-        return NetLicensingService.getInstance()?.post(
-            context,
-            Constants.Licensee.ENDPOINT_PATH + "/" + number + "/" + Constants.Licensee.ENDPOINT_PATH_VALIDATE, form,
-            ValidationResult::class.java, *meta
-        )
+        return ValidationService.validate(context, number, validationParameters, *meta);
     }
 
     @Throws(NetLicensingException::class)

@@ -15,6 +15,7 @@
 
     <properties>
         <jarName>netlicensing-client-demo</jarName>
+        <commons-io.version>2.6</commons-io.version>
     </properties>
 
     <build>
@@ -81,6 +82,14 @@
             <groupId>com.labs64.netlicensing</groupId>
             <artifactId>netlicensing-client</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
         </dependency>
     </dependencies>
 </project>

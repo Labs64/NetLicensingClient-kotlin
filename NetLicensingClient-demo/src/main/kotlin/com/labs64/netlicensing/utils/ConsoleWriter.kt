@@ -1,4 +1,4 @@
-package com.labs64.netlicensing.demo
+package com.labs64.netlicensing.utils
 
 import com.labs64.netlicensing.domain.vo.Page
 import java.lang.System.out

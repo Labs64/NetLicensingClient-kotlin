@@ -10,6 +10,8 @@ class ValidationParameters {
 
     var licenseeSecret: String? = null
 
+    var dryRun: Boolean = false
+
     var parameters: MutableMap<String, MutableMap<String, String>>? = null
         get() {
             if (field == null) {
