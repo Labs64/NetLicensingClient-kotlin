@@ -3,6 +3,8 @@ package com.labs64.netlicensing.domain.vo
 import com.labs64.netlicensing.domain.Constants
 
 class Context : GenericContext<String>(String::class.java) {
+    private var publicKey: String? = null
+
     fun setBaseUrl(baseUrl: String): Context {
         return this.setValue(Constants.BASE_URL, baseUrl) as Context
     }
@@ -50,5 +52,15 @@ class Context : GenericContext<String>(String::class.java) {
 
     fun getVendorNumber(): String? {
         return getValue(Constants.Vendor.VENDOR_NUMBER)
+    }
+
+    fun setPublicKey(publicKey: String) {
+        this.publicKey = publicKey.replace("\\r\\n|\\r|\\n".toRegex(), "")
+                .replace("-----BEGIN PUBLIC KEY-----", "")
+                .replace("-----END PUBLIC KEY-----", "")
+    }
+
+    fun getPublicKey(): String? {
+        return publicKey
     }
 }

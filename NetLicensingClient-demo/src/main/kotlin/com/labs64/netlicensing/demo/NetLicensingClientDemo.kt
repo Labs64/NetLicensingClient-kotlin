@@ -23,6 +23,7 @@ import com.labs64.netlicensing.service.ProductModuleService
 import com.labs64.netlicensing.service.ProductService
 import com.labs64.netlicensing.service.TokenService
 import com.labs64.netlicensing.service.UtilityService
+import com.labs64.netlicensing.utils.ConsoleWriter
 import org.apache.commons.lang3.RandomStringUtils
 import org.apache.commons.lang3.StringUtils
 import java.math.BigDecimal

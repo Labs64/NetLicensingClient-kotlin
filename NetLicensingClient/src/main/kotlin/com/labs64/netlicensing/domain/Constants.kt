@@ -177,4 +177,8 @@ object Constants {
         val VALIDATION_RESULT_TYPE = "ProductModuleValidation"
         val DEFAULT_TTL_MINUTES = 60 * 24 // 1 day
     }
+
+    object Validation {
+        val DRY_RUN = "dryRun"
+    }
 }
