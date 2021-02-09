@@ -73,7 +73,7 @@ object LicenseeService {
     ): ValidationResult? {
         CheckUtils.paramNotEmpty(number, "number")
 
-        return ValidationService.validate(context, number, validationParameters, *meta);
+        return ValidationService.validate(context, number, validationParameters, *meta)
     }
 
     @Throws(NetLicensingException::class)
