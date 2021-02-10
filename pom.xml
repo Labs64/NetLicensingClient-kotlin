@@ -60,12 +60,15 @@
     </modules>
 
     <properties>
-        <kotlin.version>1.3.21</kotlin.version>
+        <java.version>1.8</java.version>
+        <kotlin.version>1.4.30</kotlin.version>
         <junit.version>4.12</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jersey.version>2.27</jersey.version>
         <javax.ws.rs.version>2.1</javax.ws.rs.version>
+        <jaxb.api.version>2.3.1</jaxb.api.version>
+        <jaxb-runtime.version>2.3.2</jaxb-runtime.version>
         <org.springframework.version>5.1.5.RELEASE</org.springframework.version>
         <klint.plugin.version>0.9.23</klint.plugin.version>
         <commons-lang3.version>3.8.1</commons-lang3.version>
@@ -73,6 +76,7 @@
         <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <maven-shade-plugin.version>3.2.1</maven-shade-plugin.version>
+        <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
     </properties>
 
@@ -80,7 +84,7 @@
         <dependencies>
             <dependency>
                 <groupId>org.jetbrains.kotlin</groupId>
-                <artifactId>kotlin-stdlib-jdk8</artifactId>
+                <artifactId>kotlin-stdlib</artifactId>
                 <version>${kotlin.version}</version>
             </dependency>
 
@@ -114,6 +118,16 @@
                 <artifactId>javax.ws.rs-api</artifactId>
                 <version>${javax.ws.rs.version}</version>
                 <scope>compile</scope>
+            </dependency>
+            <dependency>
+                <groupId>javax.xml.bind</groupId>
+                <artifactId>jaxb-api</artifactId>
+                <version>${jaxb.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>${jaxb-runtime.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -173,6 +187,16 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-shade-plugin</artifactId>
                     <version>${maven-shade-plugin.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${maven-compiler-plugin.version}</version>
+                    <configuration>
+                        <encoding>utf-8</encoding>
+                        <source>${java.version}</source>
+                        <target>${java.version}</target>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
