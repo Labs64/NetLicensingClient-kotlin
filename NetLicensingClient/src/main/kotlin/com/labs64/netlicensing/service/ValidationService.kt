@@ -98,10 +98,6 @@ object ValidationService {
                 }
             }
 
-            if (StringUtils.isNotBlank(validationParameters.licenseeName)) {
-                form.param(Constants.Licensee.PROP_LICENSEE_NAME, validationParameters.licenseeName)
-            }
-
             if (validationParameters.dryRun) {
                 form.param(Constants.Validation.DRY_RUN, true.toString())
             }
