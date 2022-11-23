@@ -92,8 +92,10 @@ object ValidationService {
                 form.param(Constants.Product.PRODUCT_NUMBER, validationParameters.productNumber)
             }
 
-            if (StringUtils.isNotBlank(validationParameters.licenseeName)) {
-                form.param(Constants.Licensee.PROP_LICENSEE_NAME, validationParameters.licenseeName)
+            validationParameters.licenseeProperties?.forEach { (k, v) ->
+                if (StringUtils.isNotBlank(k)) {
+                    form.param(k, v)
+                }
             }
 
             if (validationParameters.dryRun) {

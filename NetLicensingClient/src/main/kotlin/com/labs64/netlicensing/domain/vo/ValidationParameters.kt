@@ -1,14 +1,43 @@
 package com.labs64.netlicensing.domain.vo
 
+import com.labs64.netlicensing.domain.Constants
 import java.util.concurrent.ConcurrentHashMap
 
 class ValidationParameters {
 
     var productNumber: String? = null
 
-    var licenseeName: String? = null
+    var licenseeProperties: MutableMap<String, String>? = null
+        get() {
+            if (field == null) {
+                this.licenseeProperties = ConcurrentHashMap()
+            }
+            return field
+        }
 
-    var licenseeSecret: String? = null
+    var licenseeName: String?
+        get() {
+            return licenseeProperties?.get(Constants.Licensee.PROP_LICENSEE_NAME)
+        }
+        set(value) {
+            if (value != null) {
+                licenseeProperties?.put(Constants.Licensee.PROP_LICENSEE_NAME, value)
+            } else {
+                licenseeProperties?.remove(Constants.Licensee.PROP_LICENSEE_NAME)
+            }
+        }
+
+    var licenseeSecret: String?
+        get() {
+            return licenseeProperties?.get(Constants.License.PROP_LICENSEE_SECRET)
+        }
+        set(value) {
+            if (value != null) {
+                licenseeProperties?.put(Constants.License.PROP_LICENSEE_SECRET, value)
+            } else {
+                licenseeProperties?.remove(Constants.License.PROP_LICENSEE_SECRET)
+            }
+        }
 
     var dryRun: Boolean = false
 
