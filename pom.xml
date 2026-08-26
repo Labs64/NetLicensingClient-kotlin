@@ -71,7 +71,7 @@
         <jaxb-runtime.version>2.3.2</jaxb-runtime.version>
         <org.springframework.version>5.2.24.RELEASE</org.springframework.version>
         <klint.plugin.version>0.9.23</klint.plugin.version>
-        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <commons-lang3.version>3.18.0</commons-lang3.version>
         <commons-collections4.version>4.2</commons-collections4.version>
         <maven-jaxb2-plugin.version>0.14.0</maven-jaxb2-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
